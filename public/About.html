@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Privcy Checklist</title>
+	 <!-- Site Properties -->
+	<title>Homepage - Semantic</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/reset.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/site.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/container.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/grid.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/header.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/image.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/menu.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/divider.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/dropdown.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/segment.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/button.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/list.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/icon.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/sidebar.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/transition.css">
+
+	<style type="text/css">
+
+		.hidden.menu {
+		display: none;
+		}
+    
+		#bg_pattern{
+				background-image: url(01.jpg) !important;
+				background-repeat: no-repeat !important;
+				background-size: 170% !important;
+				background-position-x: 50% !important;
+				background-position-y: 80% !important;
+				position: absolute; 
+			opacity: 0.8; 
+			left: 0px; 
+			top: 0px; 
+			width: 100%; 
+			height: 100%; 
+			z-index: -1;
+    }
+    
+		.masthead { 
+			background: transparent !important;
+			background-image: url(bg_pattern.png) !important; 
+			
+			}
+
+			.masthead .ui.inverted.segment,.masthead .ui.primary.inverted.segment {
+    background: transparent !important;
+			background-image: url(bg_pattern.png) !important; 
+    
+}
+
+		.ui.secondary.inverted.pointing.menu {
+			border-width: 0px;
+		}
+
+		.masthead.segment {
+		min-height: 700px;
+		padding: 1em 0em;
+		}
+		.masthead .logo.item img {
+		margin-right: 1em;
+		}
+		.masthead .ui.menu .ui.button {
+		margin-left: 0.5em;
+		}
+		.masthead h1.ui.header {
+		margin-top: 3em;
+		margin-bottom: 0em;
+		font-size: 4em;
+		font-weight: normal;
+		}
+		.masthead h2 {
+		font-size: 1.7em;
+		font-weight: normal;
+		}
+
+		.ui.vertical.stripe {
+		padding: 8em 0em;
+		}
+		.ui.vertical.stripe h3 {
+		font-size: 2em;
+		}
+		.ui.vertical.stripe .button + h3,
+		.ui.vertical.stripe p + h3 {
+		margin-top: 3em;
+		}
+		.ui.vertical.stripe .floated.image {
+		clear: both;
+		}
+		.ui.vertical.stripe p {
+		font-size: 1.33em;
+		}
+		.ui.vertical.stripe .horizontal.divider {
+		margin: 3em 0em;
+		}
+
+		.quote.stripe.segment {
+		padding: 0em;
+		}
+		.quote.stripe.segment .grid .column {
+		padding-top: 5em;
+		padding-bottom: 5em;
+		}
+
+		.footer.segment {
+		padding: 5em 0em;
+		}
+
+		.secondary.pointing.menu .toc.item {
+		display: none;
+		}
+
+		@media only screen and (max-width: 700px) {
+		.ui.fixed.menu {
+			display: none !important;
+		}
+		.secondary.pointing.menu .item,
+		.secondary.pointing.menu .menu {
+			display: none;
+		}
+		.secondary.pointing.menu .toc.item {
+			display: block;
+		}
+		.masthead.segment {
+			min-height: 350px;
+		}
+		.masthead h1.ui.header {
+			font-size: 2em;
+			margin-top: 1.5em;
+		}
+		.masthead h2 {
+			margin-top: 0.5em;
+			font-size: 1.5em;
+		}
+		}
+
+
+	</style>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/visibility.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/sidebar.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/transition.js"></script>
+	<script>
+	$(document)
+		.ready(function() {
+
+		// fix menu when passed
+		$('.masthead')
+			.visibility({
+			once: false,
+			onBottomPassed: function() {
+				$('.fixed.menu').transition('fade in');
+			},
+			onBottomPassedReverse: function() {
+				$('.fixed.menu').transition('fade out');
+			}
+			})
+		;
+
+		// create sidebar and attach to menu open
+		$('.ui.sidebar')
+			.sidebar('attach events', '.toc.item')
+		;
+
+		})
+	;
+	</script>
+</head>
+<body data-gr-c-s-loaded="true" class="pushable">
+
+<!-- Following Menu -->
+<div class="ui large top fixed hidden menu">
+  <div class="ui container">
+    <a class=" item" href="index.html">Home</a>
+    <a class="active item">About</a>
+    <a class="item" href="checklist.html">Checklist</a>
+
+    <!--<div class="right menu">
+      <div class="item">
+        <a class="ui button">Log in</a>
+      </div>
+      <div class="item">
+        <a class="ui primary button">Sign Up</a>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar Menu -->
+<div class="ui vertical inverted sidebar menu left">
+  <a class=" item" href="index.html">Home</a>
+  <a class="active item">About</a>
+  <a class="item" href="checklist.html">Checklist</a>
+
+  <!--<a class="item">Login</a>
+  <a class="item">Signup</a>-->
+</div>
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="ui inverted vertical masthead center aligned segment">
+    <div id="bg_pattern"></div>
+    <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        <a class="toc item">
+          <i class="sidebar icon"></i>
+        </a>
+        <a class=" item" href="index.html">Home</a>
+        <a class="active item">About</a>
+        <a class="item" href="checklist.html">Checklist</a>
+
+        <!--<div class="right item">
+          <a class="ui inverted button">Log in</a>
+          <a class="ui inverted button">Sign Up</a>
+        </div>-->
+      </div>
+    </div>
+
+    <div class="ui text container">
+      <h1 id="maintitle" class="ui inverted header">
+        Privcy Checklist
+      </h1>
+      <h2 id="maindescription">Brief presentation Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus massa, fringilla a rutrum eu, ultricies ut metus.  </h2>
+     
+    </div>
+
+  </div>
+
+
+  <div class="ui vertical stripe segment">
+	    <div  id="checkListContainer" class="ui middle aligned stackable grid container">
+
+				<div class="row">
+							<div class="eight wide column">
+								<h3 id="biotitle1" class="ui header">We Help Companies and Companions</h3>
+								<p id="bio1">We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
+							</div>
+							<div class="six wide right floated column">
+								<img id="image1" src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+							</div>
+				 </div>
+
+				 				<div class="row">
+									 							<div class="six wide left floated column">
+								<img id="image2" src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+							</div>
+							<div class="eight wide column">
+								<h3 id="biotitle2" class="ui header">We Help Companies and Companions</h3>
+								<p id="bio2">We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
+							</div>
+
+				 </div>
+
+				 <div class="row">
+							<div class="eight wide column">
+								<h3 id="biotitle3" class="ui header">We Help Companies and Companions</h3>
+								<p id="bio3">We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
+							</div>
+							<div class="six wide right floated column">
+								<img id="image3" src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+							</div>
+				 </div>
+
+				 <div class="row">
+					 							<div class="six wide left floated column">
+								<img id="image4" src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+							</div>
+							<div class="eight wide column">
+								<h3 id="biotitle4" class="ui header">We Help Companies and Companions</h3>
+								<p id="bio4">We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
+							</div>
+
+				 </div>
+     </div>   
+
+</div>
+    
+  
+
+
+
+  <div class="ui inverted vertical footer segment">
+    <div class="ui container">
+      <div class="ui stackable inverted divided equal height stackable grid">
+        <div class="three wide column">
+          <h4 class="ui inverted header">About</h4>
+          <div class="ui inverted link list">
+
+            <a href="about.html" class="item">Contact Us</a>
+
+          </div>
+        </div>
+
+        <div class="seven wide column">
+          <h4 class="ui inverted header">Privacy Checklist</h4>
+          <p  id="maindescription">A Human-Factor related source to help Digital Health developers and innovators to cover all fundamental privacy and security requirements. Just by following the steps of this checklist.Start</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>
+
+
+		
+
+
+<script>
+
+
+var id= "1GLSqgHc7JuKo7mC4KX8Sajz8jyJsps9-2q5ZKhwMtBE"
+
+var url = "https://spreadsheets.google.com/feeds/list/" + id + "/od6/public/values?alt=json";
+
+var labels = ["maindescription","maintitle","biotitle1","bio1","image1","biotitle2","bio2","image2","biotitle3","bio3","image3","biotitle4","bio4","image4"];
+var tocco = "gsx$"; 
+var myData = [];
+
+$.get(url, function(data) {
+
+	var rows = data.feed.entry;
+
+	$(rows).each(function(index,item){
+
+			$(labels).each(function(inindex,initem){
+				  var key = tocco + initem,	
+					    content = item[key].$t,	 
+					    id =  '#' + initem;
+					$(id).text(content);
+					if(initem.indexOf('image')>-1){
+						 $(id).attr("src", content);
+					}
+			});
+		
+	});
+
+});
+
+
+
+
+
+</script>
