@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/sticky.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/progress.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/label.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/popup.css">
 
 	<style type="text/css">
 
@@ -150,6 +151,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/sticky.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/transition.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/visibility.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/popup.js"></script>
 
 	<script>
 
@@ -298,10 +300,29 @@
 
                for(indey in choichesRound){
 
-                    block = block + '<label>'+choichesRound[indey]+'</label>'+
+                    var datacontent = '';
+
+                    switch(choichesRound[indey]) {
+                    case 'Low':
+                        datacontent = 'The application does not provide this requirement. / The requirement is not made very explicit.';
+                        break;
+                    case 'Medium Low':
+                        datacontent = 'The application does provide the requirement, but in a limited implementation, explanation or usage. / The requirement is implemented, but the purpose is not completely clear.';
+                        break;
+                    case 'Medium High':
+                        datacontent = 'The application does provide the requirement, and purposes of it are made explicit, coherently with some constraints in the structure of the application. / The application does provide the requirement, and purposes of it are made explicit. However the user do not have completely control over them.';
+                        break;
+                    case 'High':
+                        datacontent = 'The requirement is well implemented and functioning, in a smooth combination with the application structure. Also, the user has complete control over it. ';
+                        break;
+                    default:
+                        datacontent = '';
+                    };
+
+                    block = block + '<label data-content="'+ datacontent +'">'+choichesRound[indey]+'</label>'+
                                   '<div class="field">'+
                                         '<div class="ui radio checkbox" value="'+valuesRound[indey]+'">'+
-                                            '<input type="radio" name="Subtopic'+ index + json.topictitle +'" tabindex="0" class="hidden">'+
+                                            '<input  type="radio" name="Subtopic'+ index + json.topictitle +'" tabindex="0" class="hidden">'+
                                             '</div>'+
                                         '</div>';
 
@@ -330,7 +351,12 @@
     }
 
     function initializeUi(){
+
             var modals = $('.ui.modal');
+
+            //
+            $('label')
+            .popup();
 
             //modal
             $('.help').click(function(event){
@@ -368,8 +394,7 @@
                 },
             }); 
         
-        }
-
+    }
 
     function updateprogressbar(){     
         var totalChecked = 0,
@@ -392,14 +417,16 @@
         //progressupdate 
         $('.ui.indicating.progress').progress({ percent: percentage });
 
-    } 
+    }
+
     function updateQuestionsCount(){     
         var totalChecked = $('.checkbox').filter('.checked').length,
             totalQuestions =  $('.inline.fields').length;
 
             $('#questionAnswered').html(totalChecked+'/'+ totalQuestions);
         
-    } 
+    }
+     
     function map_range(value, low1, high1, low2, high2) {
             return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
     }
