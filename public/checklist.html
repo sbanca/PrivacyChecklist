@@ -134,7 +134,8 @@
         .form{margin-top:10px;}
         .specialprogress{min-width:300px;}
         .specialprogress .progress{min-width:300px;}
-        .wrapperprogress{padding:13px;}    
+        .wrapperprogress{padding:13px;}  
+        #readmorebutton{position:absolute; right:0; bottom:-10px;cursor:pointer;font-size: 0.8em;}  
 	</style>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -152,24 +153,39 @@
 
 	<script>
 
-    var firstTopicId= "1GRE2LrxBXLuVKnlVnYgFuN4jL2AIayqR1UZfTIBUTeQ";
-    var secondTopicId= "1kxCknRKlTAphQOVN9WNnjzfQx8FwGq8Pdyqopd_cVAk";
-    var thirdTopicId= "1M4ocwg8HFjpwDXo7Z9TVuHPUYtXvz6R04OEDdmrL0qo";
-    var fourthTopicId= "1vUI8wJ2ivIPq1m6DTWKSF5NAigN3gUtluarwskQhCg4";
-    var fifthTopicId= "1oyWImEQAQ1obyq_5_m-vyxuFTPN-1zlD4uUQMEn6lB0";
+    var description =   "1MbhFEkIdsWavH3_T-PBUUEanMr7VQeoGvSrYz-1YvqQ";     
+    var firstTopicId =  "1GRE2LrxBXLuVKnlVnYgFuN4jL2AIayqR1UZfTIBUTeQ";
+    var secondTopicId = "1kxCknRKlTAphQOVN9WNnjzfQx8FwGq8Pdyqopd_cVAk";
+    var thirdTopicId =  "1M4ocwg8HFjpwDXo7Z9TVuHPUYtXvz6R04OEDdmrL0qo";
+    var fourthTopicId = "1vUI8wJ2ivIPq1m6DTWKSF5NAigN3gUtluarwskQhCg4";
+    var fifthTopicId =  "1oyWImEQAQ1obyq_5_m-vyxuFTPN-1zlD4uUQMEn6lB0";
 
+    var descriptionUrl ="https://spreadsheets.google.com/feeds/list/" + description + "/od6/public/values?alt=json";
     var firstTopicUrl = "https://spreadsheets.google.com/feeds/list/" + firstTopicId + "/od6/public/values?alt=json";
     var secondTopicUrl = "https://spreadsheets.google.com/feeds/list/" + secondTopicId + "/od6/public/values?alt=json";
     var thirdTopicUrl = "https://spreadsheets.google.com/feeds/list/" + thirdTopicId + "/od6/public/values?alt=json";
     var fourthTopicUrl = "https://spreadsheets.google.com/feeds/list/" + fourthTopicId + "/od6/public/values?alt=json"; 
     var fifthTopicUrl = "https://spreadsheets.google.com/feeds/list/" + fifthTopicId + "/od6/public/values?alt=json"; 
+    
+    var contentLabel = ["checklisttitle","checklisttopic"]
+    var labels = ["topictitle",	"topicdescription",
+                  "sbtp1title","sbtp1description","sbtp1modal","sbfield1","ch1name","ch1val",
+                  "sbtp2title","sbtp2description","sbtp2modal","sbfield2","ch2name","ch2val",
+                  "sbtp3title","sbtp3description","sbtp3modal","sbfield3","ch3name","ch3val",
+                  "sbtp4title","sbtp4description","sbtp4modal","sbfield4","ch4name","ch4val",
+                  "sbtp5title","sbtp5description","sbtp5modal","sbfield5","ch5name","ch5val",
+                  "sbtp6title","sbtp6description","sbtp6modal","sbfield6","ch6name","ch6val",
+                  "sbtp7title","sbtp7description","sbtp7modal","sbfield7","ch7name","ch7val",
+                  "sbtp8title","sbtp8description","sbtp8modal","sbfield8","ch8name","ch8val",
+                  "sbtp9title","sbtp9description","sbtp9modal","sbfield9","ch9name","ch9val"];
 
-    var labels = ["topictitle",	"topicdescription","sbtp1title","sbtp1description","sbtp1modal","ch1name","ch1val","sbtp2title","sbtp2description","sbtp2modal","ch2name","ch2val","sbtp3title","sbtp3description","sbtp3modal","ch3name","ch3val","sbtp4title","sbtp4description","sbtp4modal","ch4name","ch4val","sbtp5title","sbtp5description","sbtp5modal","ch5name","ch5val"];
-    var subtop = [labels[2],labels[7],labels[12],labels[17],labels[22]];
-    var subtopD = [labels[3],labels[8],labels[13],labels[18],labels[23]];
-    var modal = [labels[4],labels[9],labels[14],labels[19],labels[24]];
-    var choiches = [labels[5],labels[10],labels[15],labels[20],labels[25]];
-    var values = [labels[6],labels[11],labels[16],labels[21],labels[26]];
+    var subtop =    [labels[2],labels[8],labels[14],labels[20],labels[26],labels[32],labels[38],labels[44],labels[50]];
+    var subtopD =   [labels[3],labels[9],labels[15],labels[21],labels[27],labels[33],labels[39],labels[45],labels[51]];
+    var modal =     [labels[4],labels[10],labels[16],labels[22],labels[28],labels[34],labels[40],labels[46],labels[52]];
+    var subFields = [labels[5],labels[11],labels[17],labels[23],labels[29],labels[35],labels[41],labels[47],labels[53]]; 
+    var choiches =  [labels[6],labels[12],labels[18],labels[24],labels[30],labels[36],labels[42],labels[48],labels[54]];
+    var values =    [labels[7],labels[13],labels[19],labels[25],labels[31],labels[37],labels[43],labels[49],labels[55]];
+
     var tocco = "gsx$"; 
     var myData = [];
     var firstTopicObj = {};
@@ -177,13 +193,37 @@
     var thirdTopicObj = {};
     var fourthTopicObj = {};
     var fifthTopicObj = {};
+    
+    $.get(descriptionUrl, function(data) {
+    
+	var rows = data.feed.entry;
+
+        $(rows).each(function(index,item){
+
+                $(contentLabel).each(function(inindex,initem){
+                    var key = tocco + initem,	
+                            content = item[key].$t,	 
+                            id =  '#' + initem,
+                            div = $(id);
+
+                    if(div.attr('data-edited')=='false') div.empty();
+                    div.append(content);        
+                    div.attr('data-edited','true');
+                   
+                });
+            
+        });
+
+    });
+
 
     $.get(firstTopicUrl, function(data) {parseJsonToJson(firstTopicObj,data);createCheckListTopic(firstTopicObj,'first');getsecond();});
     function getsecond() {$.get(secondTopicUrl, function(data) {parseJsonToJson(secondTopicObj,data);createCheckListTopic(secondTopicObj,'second');getthird();});}
     function getthird() {$.get(thirdTopicUrl, function(data) {parseJsonToJson(thirdTopicObj,data);createCheckListTopic(thirdTopicObj,'third');getfourth();});}
     function getfourth() {$.get(fourthTopicUrl, function(data) {parseJsonToJson(fourthTopicObj,data);createCheckListTopic(fourthTopicObj,'fourth');getfifth();});}
     function getfifth() {$.get(fifthTopicUrl, function(data) {parseJsonToJson(fifthTopicObj,data);createCheckListTopic(fifthTopicObj,'fifth'); addProgressBar();initializeUi();});}
-    
+
+
 
     function parseJsonToJson(jsonObj,data){
 
@@ -192,9 +232,12 @@
         $(rows).each(function(index,item){
 
                 $(labels).each(function(inindex,initem){
-                
-                    var key = tocco + initem,	
-                        content = item[key].$t,	 
+
+                    var key = tocco + initem;
+
+                    if (item[key]==undefined) return true;
+                    	
+                    var content = item[key].$t,	 
                         id =  '#' + initem;
                 
                     if(content!=""){
@@ -226,12 +269,19 @@
             
             if(subtoptitle==undefined)continue;
             
-            var subtoptitlenospace = subtoptitle.replace(/\s/g, ''),
+            var subfield = json[subFields[index]],
+                subtoptitlenospace = subtoptitle.replace(/\s/g, ''),
                 subtopDescription = json[subtopD[index]],
                 subtopModal = json[modal[index]],
                 choichesRound=json[choiches[index]],
                 valuesRound=json[values[index]];
                 max = Math.max.apply(null, valuesRound);
+                
+            if (subfield!=undefined){
+
+                block = block + '<div class="item"><h4>'+subfield+'</h4></div>';
+
+            }
 
             block = block + '<div class="item">'+
                                 '<div class="content">'+
@@ -298,10 +348,21 @@
             });
             
 
-                            
+             //readmore
+             $('#readmorebutton').click(function(){
+                    var jthis = $(this),
+                        targetId = jthis.attr('data-readmore');
+                        jtarget = jQuery(targetId);
+
+                    if(jtarget.is(':visible')) {jtarget.hide(); jthis.text('Read More..');}
+                    else { jtarget.show(); jthis.text('Read Less..');}       
+
+                           
+
+             });               
         
             //checkbox
-            $('.ui.radio.checkbox') .checkbox({ onChecked: function() {
+            $('.ui.radio.checkbox').checkbox({ onChecked: function() {
                 updateprogressbar();
                 updateQuestionsCount();
                 },
@@ -416,8 +477,10 @@
         <div class="row">
 
             <div class="ten wide column">
-             <h1 class="ui header">Privacy Checklist</h1>
-             <p>We looked at the user journey as a way to structure our content, the first topic we discuss is related to the information the user receives at first contact then the journey moves on, the user registers giving consent to an intial set of data, after we explore the different roles and responsabilities users can have within Digital Health and what this mean for privacy,  the core section is related to Data Managment ( access, validity, transfer, storage and delition), and finally ...		</p>
+             <h1 id="checklisttitle" class="ui header" data-edited="false">Privacy Checklist</h1>
+             <div id="checklisttopic" data-edited="false">
+                 <p >We looked at the user journey as a way to structure our content, the first topic we discuss is related to the information the user receives at first contact then the journey moves on, the user registers giving consent to an intial set of data, after we explore the different roles and responsabilities users can have within Digital Health and what this mean for privacy,  the core section is related to Data Managment ( access, validity, transfer, storage and delition), and finally ...		</p>
+             </div>
             </div>
             <div class="one wide column"></div>
             <div class="overlay" >
