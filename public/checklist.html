@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/menu.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/checkbox.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/form.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/accordion.css">
 
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/divider.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/dropdown.css">
@@ -131,7 +132,7 @@
 			font-size: 1.5em;
 		}
 		}
-
+        .small{font-size:1em !important;}
         .form{margin-top:10px;}
         .specialprogress{min-width:300px;}
         .specialprogress .progress{min-width:300px;}
@@ -152,6 +153,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/transition.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/visibility.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/popup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/components/accordion.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+    
 
 	<script>
 
@@ -171,22 +175,23 @@
     
     var contentLabel = ["checklisttitle","checklisttopic"]
     var labels = ["topictitle",	"topicdescription",
-                  "sbtp1title","sbtp1description","sbtp1modal","sbfield1","ch1name","ch1val",
-                  "sbtp2title","sbtp2description","sbtp2modal","sbfield2","ch2name","ch2val",
-                  "sbtp3title","sbtp3description","sbtp3modal","sbfield3","ch3name","ch3val",
-                  "sbtp4title","sbtp4description","sbtp4modal","sbfield4","ch4name","ch4val",
-                  "sbtp5title","sbtp5description","sbtp5modal","sbfield5","ch5name","ch5val",
-                  "sbtp6title","sbtp6description","sbtp6modal","sbfield6","ch6name","ch6val",
-                  "sbtp7title","sbtp7description","sbtp7modal","sbfield7","ch7name","ch7val",
-                  "sbtp8title","sbtp8description","sbtp8modal","sbfield8","ch8name","ch8val",
-                  "sbtp9title","sbtp9description","sbtp9modal","sbfield9","ch9name","ch9val"];
+                  "sbtp1title","sbtp1description","sbtp1modal","sbfield1","requirment1","ch1name","ch1val",
+                  "sbtp2title","sbtp2description","sbtp2modal","sbfield2","requirment2","ch2name","ch2val",
+                  "sbtp3title","sbtp3description","sbtp3modal","sbfield3","requirment3","ch3name","ch3val",
+                  "sbtp4title","sbtp4description","sbtp4modal","sbfield4","requirment4","ch4name","ch4val",
+                  "sbtp5title","sbtp5description","sbtp5modal","sbfield5","requirment5","ch5name","ch5val",
+                  "sbtp6title","sbtp6description","sbtp6modal","sbfield6","requirment6","ch6name","ch6val",
+                  "sbtp7title","sbtp7description","sbtp7modal","sbfield7","requirment7","ch7name","ch7val",
+                  "sbtp8title","sbtp8description","sbtp8modal","sbfield8","requirment8","ch8name","ch8val",
+                  "sbtp9title","sbtp9description","sbtp9modal","sbfield9","requirment9","ch9name","ch9val"];
 
-    var subtop =    [labels[2],labels[8],labels[14],labels[20],labels[26],labels[32],labels[38],labels[44],labels[50]];
-    var subtopD =   [labels[3],labels[9],labels[15],labels[21],labels[27],labels[33],labels[39],labels[45],labels[51]];
-    var modal =     [labels[4],labels[10],labels[16],labels[22],labels[28],labels[34],labels[40],labels[46],labels[52]];
-    var subFields = [labels[5],labels[11],labels[17],labels[23],labels[29],labels[35],labels[41],labels[47],labels[53]]; 
-    var choiches =  [labels[6],labels[12],labels[18],labels[24],labels[30],labels[36],labels[42],labels[48],labels[54]];
-    var values =    [labels[7],labels[13],labels[19],labels[25],labels[31],labels[37],labels[43],labels[49],labels[55]];
+    var subtop =    [labels[2],labels[9],labels[16],labels[23],labels[30],labels[37],labels[44],labels[51],labels[58]];
+    var subtopD =   [labels[3],labels[10],labels[17],labels[24],labels[31],labels[38],labels[45],labels[52],labels[59]];
+    var modal =     [labels[4],labels[11],labels[18],labels[25],labels[32],labels[39],labels[46],labels[53],labels[60]];
+    var subFields = [labels[5],labels[12],labels[19],labels[26],labels[33],labels[40],labels[47],labels[54],labels[61]]; 
+    var subReq    = [labels[6],labels[13],labels[20],labels[27],labels[34],labels[41],labels[48],labels[55],labels[62]]; 
+    var choiches =  [labels[7],labels[14],labels[21],labels[28],labels[35],labels[42],labels[49],labels[56],labels[63]];
+    var values =    [labels[8],labels[15],labels[22],labels[29],labels[36],labels[43],labels[50],labels[57],labels[64]];
 
     var tocco = "gsx$"; 
     var myData = [];
@@ -260,8 +265,8 @@
     }
 
     function createCheckListTopic(json,topic){
-        var block =  '<div id="'+topic+'" class="row" ><div class="ten wide column ui segment"><h2 class="ui header">'+ 
-                      json.topictitle +'</h2><p>'+
+        var block =  '<div id="'+topic+'" class="row" ><div class="ten wide column ui segment"><h1 class="ui header">'+ 
+                      json.topictitle +'</h1><p>'+
                       json.topicdescription+'</p>';
 
         block = block +'<div class="ui list">';
@@ -275,28 +280,63 @@
                 subtoptitlenospace = subtoptitle.replace(/\s/g, ''),
                 subtopDescription = json[subtopD[index]],
                 subtopModal = json[modal[index]],
+                subRequ = json[subReq[index]],
                 choichesRound=json[choiches[index]],
                 valuesRound=json[values[index]];
                 max = Math.max.apply(null, valuesRound);
                 
             if (subfield!=undefined){
 
-                block = block + '<div class="item"><h4>'+subfield+'</h4></div>';
+                block = block + '<div class="item"><h3>'+subfield+'</h3></div>';
 
             }
 
-            block = block + '<div class="item">'+
+            /*block = block + '<div class="item">'+
                                 '<div class="content">'+
-                                    '<div class="header">' +subtoptitle+ 
-                                    '<i id="' + subtoptitlenospace+topic + '"class="help icon"></i> </div>'+
-                                    '<div class="description">'+subtopDescription+'</div>'+
+                                    '<div class="header">' +subtoptitle+                                    
+                                    '</div><div class="description">'+subtopDescription+'</div>'+
                                     '<!--modals--><div id="' + subtoptitlenospace+topic+index+ '" class="ui modal" ><div class="header">'+subtoptitle+
                                     '</div><div class=" content"><div class="description"><div class="ui header">Modal Header</div>'+
                                      '<p>'+subtopModal+'</p>'+'</div></div><div class="actions"><div class="ui primary approve button">Proceed<i class="right chevron icon"></i></div></div></div>'+
                                     '<div class="ui form">'+
-                                    '<div class="inline fields" value="' + max + '">';
+                                    '<div class="inline fields" value="' + max + '">';*/
 
-                             
+           /*block = block + '<div class="ui segment">'+
+                                '<div class="content">'+
+                                    '<div class="ui accordion">'+
+                                    '<div class="title"><i class="dropdown icon"></i>'+subtoptitle+'</div>'+
+                                    '<div class="content"><p class="transition hidden">'+subtopDescription+'</p></div>'+
+                                    '</div>'+   
+                                    '<div class="ui form">'+
+                                    '<div class="inline fields" value="' + max + '">';*/
+
+                                    
+          /* block = block + '<div class="ui segment">'+
+                                '<div class="content">'+
+                                   
+                                    '<div class="ui blue ribbon label">'+subtoptitle+'</div>'+
+                                    
+                                    '<p class="small">'+subtopDescription+'</p>'+
+                                   
+                                    '<div class="ui form">'+
+                                    '<div class="inline fields" value="' + max + '">';*/
+
+                block = block + '<div class="ui segment">'+
+                                '<div class="content">'+
+                                   
+                                    '<div class="ui blue ribbon label">'+subtoptitle+'</div>'+
+                                    
+                                    '<div class="ui accordion">'+
+                                    '<div class="title"><i class="dropdown icon"></i>Description</div>'+
+                                    '<div class="content"><p class="transition hidden small">'+subtopDescription+'</p></div>'+
+                                    '<div class="title"><i class="dropdown icon"></i>Human factor relations</div>'+
+                                    '<div class="content"><p class="transition hidden small">'+subtopModal+'</p></div>'+
+                                     '<div class="title"><i class="dropdown icon"></i>Requirement</div>'+
+                                    '<div class="content"><p class="transition hidden small">'+subRequ+'</p></div>'+
+                                    '</div>'+  
+                                   
+                                    '<div class="ui form">'+
+                                    '<div class="inline fields" value="' + max + '">';      
 
                for(indey in choichesRound){
 
@@ -354,9 +394,12 @@
 
             var modals = $('.ui.modal');
 
-            //
+            //popup
             $('label')
             .popup();
+
+            //accordion
+            $('.ui.accordion').accordion();
 
             //modal
             $('.help').click(function(event){
@@ -393,6 +436,8 @@
                 updateQuestionsCount();
                 },
             }); 
+
+
         
     }
 
@@ -426,10 +471,11 @@
             $('#questionAnswered').html(totalChecked+'/'+ totalQuestions);
         
     }
-     
+
     function map_range(value, low1, high1, low2, high2) {
             return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
     }
+
 
 
 	$(document)
@@ -496,37 +542,40 @@
 
   </div>
     
-    <!--central element-->
-    <div  class="ui vertical stripe segment">
+<!--central element-->
+<div  class="ui vertical stripe segment">
 
-        <div  id="checkListContainer" class="ui middle aligned stackable grid container">
-        
-        <div class="row">
+    <div  id="checkListContainer" class="ui middle aligned stackable grid container">
+    
+    <div class="row">
 
-            <div class="ten wide column">
-             <h1 id="checklisttitle" class="ui header" data-edited="false">Privacy Checklist</h1>
-             <div id="checklisttopic" data-edited="false">
-                 <p >We looked at the user journey as a way to structure our content, the first topic we discuss is related to the information the user receives at first contact then the journey moves on, the user registers giving consent to an intial set of data, after we explore the different roles and responsabilities users can have within Digital Health and what this mean for privacy,  the core section is related to Data Managment ( access, validity, transfer, storage and delition), and finally ...		</p>
-             </div>
+        <div class="ten wide column">
+            <h1 id="checklisttitle" class="ui header" data-edited="false">Privacy Checklist</h1>
+            <div id="checklisttopic" data-edited="false">
+                <p >We looked at the user journey as a way to structure our content, the first topic we discuss is related to the information the user receives at first contact then the journey moves on, the user registers giving consent to an intial set of data, after we explore the different roles and responsabilities users can have within Digital Health and what this mean for privacy,  the core section is related to Data Managment ( access, validity, transfer, storage and delition), and finally ...		</p>
             </div>
-            <div class="one wide column"></div>
-            <div class="overlay" >
-                <div class="four wide column ui labeled icon vertical menu" style="position: fixed; top: 190px; left: auto; z-index: 10;">
-                    <div class="ui top attached label">Menu</div>                   
-                    <a class="item" href="#first">1. INFORMATION</a>
-                    <a class="item" href="#second">2. DATA CONSENT</a>
-                    <a class="item" href="#third">3. ROLES AND RESPONSABILITIES</a>
-                    <a class="item" href="#fourth">3. DATA MANAGMENT</a>
-                    <a class="item" href="#fifth">3. SECURITY</a>
-                     <div class="item">
-                        <div class="ui indicating progress sticky "><div class="bar"><div class="progress"></div></div><div class="label">Privacy Score</div></div>
-                    </div>
-                    <div class= "item">
-                        <div >Question Answered: <span id="questionAnswered">0/20<span></div>
-                    </div>
+        </div>
+        <div class="one wide column"></div>
+        <div class="overlay" >
+            <div class="four wide column ui labeled icon vertical menu" style="position: fixed; top: 190px; left: auto; z-index: 10;">
+                <div class="ui top attached label">Menu</div>                   
+                <a class="item" href="#first">1. INFORMATION</a>
+                <a class="item" href="#second">2. DATA CONSENT</a>
+                <a class="item" href="#third">3. ROLES AND RESPONSABILITIES</a>
+                <a class="item" href="#fourth">4. DATA MANAGMENT</a>
+                <a class="item" href="#fifth">5. SECURITY</a>
+                <div class="item">
+                    <div class="ui indicating progress sticky "><div class="bar"><div class="progress"></div></div><div class="label">Privacy Score</div></div>
                 </div>
-                </div><div class="overlay placeholder" style="display: none; ">
+                <div class= "item">
+                    <div>Question Answered: <span id="questionAnswered">0/20<span></div>
+                </div>
+                <div class="item">
+                    <button class="ui  button" onclick="window.location.href = 'https://docs.google.com/forms/d/1EZHFdKeyn4Fk7Ljbb16nVxUNKe-2EmzcLyJxUNDd97M/';">Help Us improving our checklist</button>
+                </div>
             </div>
+            </div><div class="overlay placeholder" style="display: none; ">
+        </div>
 
         </div>
 
@@ -554,21 +603,9 @@
         <div class="three wide column">
           <h4 class="ui inverted header">About</h4>
           <div class="ui inverted link list">
-            <!--<a href="http://semantic-ui.com/examples/homepage.html#" class="item">Sitemap</a>-->
             <a href="About.html" class="item">Contact Us</a>
-            <!--<a href="http://semantic-ui.com/examples/homepage.html#" class="item">Religious Ceremonies</a>
-            <a href="http://semantic-ui.com/examples/homepage.html#" class="item">Gazebo Plans</a>-->
           </div>
         </div>
-        <!--<div class="three wide column">
-          <h4 class="ui inverted header">Services</h4>
-          <div class="ui inverted link list">
-            <a href="http://semantic-ui.com/examples/homepage.html#" class="item">Banana Pre-Order</a>
-            <a href="http://semantic-ui.com/examples/homepage.html#" class="item">DNA FAQ</a>
-            <a href="http://semantic-ui.com/examples/homepage.html#" class="item">How To Access</a>
-            <a href="http://semantic-ui.com/examples/homepage.html#" class="item">Favorite X-Men</a>
-          </div>
-        </div>-->
         <div class="seven wide column">
           <h4 class="ui inverted header">Privacy Checklist</h4>
           <p  id="maindescription">A Human-Factor related source to help Digital Health developers and innovators to cover all fundamental privacy and security requirements. Just by following the steps of this checklist.Start</p>
